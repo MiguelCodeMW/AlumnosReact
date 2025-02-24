@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Alumno } from "../utils/Alumno";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function Formulario() {
+function FormularioEdit() {
+  const location = useLocation();
+  const alumno = location.state?.alumno as Alumno;
   const [datosAlumno, setDatosAlumnos] = useState<Alumno>({
-    id: -1,
-    nombre: "",
-    apellidos: "",
-    email: "",
-    telefono: "",
-    direccion: "",
+    id: alumno?.id || -1,
+    nombre: alumno?.nombre || "",
+    apellidos: alumno?.apellidos || "",
+    email: alumno?.email || "",
+    telefono: alumno?.telefono || "",
+    direccion: alumno?.direccion || "",
   });
 
   const handleAlumnoDatos = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,19 +24,22 @@ function Formulario() {
     e.preventDefault(); // Evita que la página se recargue
 
     try {
-      const response = await fetch("http://localhost:8000/api/alumno", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosAlumno),
-      });
+      const response = await fetch(
+        `http://localhost:8000/api/alumno/${alumno.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosAlumno),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Error al registrar el alumno");
+        throw new Error("Error al actualizar el alumno");
       }
 
-      console.log("Alumno registrado correctamente");
+      console.log("Alumno actualizado correctamente");
       //redireccionar al listado de alumnos
       navigate("/alumno");
     } catch (error) {
@@ -79,9 +84,9 @@ function Formulario() {
         onChange={handleAlumnoDatos}
         placeholder="direccion"
       />
-      <button type="submit">Registrar Alumno</button>
+      <button type="submit">Actualizar Alumno</button>
     </form>
   );
 }
 
-export default Formulario;
+export default FormularioEdit;

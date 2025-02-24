@@ -6,28 +6,16 @@ import {
   Navigate,
 } from "react-router-dom";
 import Formulario from "./components/Formulario";
+import FormularioEdit from "./components/FormularioEdit";
 
 function App() {
-  const handleEditar = (id: number) => console.log(`Editar ${id}`);
-  const handleEliminar = (id: number) => console.log(`Eliminar ${id}`);
-
-  /* return (
-    <Lista irAEditarAlumno={handleEditar} eliminarAlumno={handleEliminar} />
-  ); */
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/alumno" />} />
-        <Route
-          path="/alumno"
-          element={
-            <Lista
-              irAEditarAlumno={handleEditar}
-              eliminarAlumno={handleEliminar}
-            />
-          }
-        />
+        <Route path="/alumno" element={<Lista />} />
         <Route path="/alumno/create" element={<Formulario />} />
+        <Route path="/alumno/edit" element={<FormularioEdit />} />
       </Routes>
     </Router>
   );
