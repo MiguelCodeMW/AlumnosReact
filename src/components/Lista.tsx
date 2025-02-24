@@ -34,18 +34,14 @@ function Lista({ irAEditarAlumno, eliminarAlumno }: listProps) {
       {alumnos.length > 0 ? (
         <ul>
           {alumnos.map((alumno) => (
-            <li key={alumno.id}>
+            <li key={alumno.apellidos}>
               {alumno.nombre}
               <br />
-              <Button
-                text="Editar"
-                id={alumno.id}
-                onClick={() => irAEditarAlumno(alumno.id)}
-              />
+              <Button text="Editar" id={1} onClick={() => irAEditarAlumno(1)} />
               <Button
                 text="Eliminar"
-                id={alumno.id}
-                onClick={() => eliminarAlumno(alumno.id)}
+                id={alumno.apellidos}
+                onClick={() => eliminarAlumno(1)}
               />
             </li>
           ))}
