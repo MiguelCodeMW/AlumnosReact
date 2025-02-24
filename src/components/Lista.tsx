@@ -4,7 +4,6 @@ import axios from "axios";
 import { Alumno } from "../utils/Alumno";
 
 type listProps = {
-  list: Alumno[];
   irAEditarAlumno: (id: number) => void;
   eliminarAlumno: (id: number) => void;
 };
