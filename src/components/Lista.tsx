@@ -2,15 +2,20 @@ import Button from "./Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Alumno } from "../utils/Alumno";
+import { useNavigate } from "react-router-dom";
 
 type listProps = {
-  list: Alumno[];
+  // list: Alumno[];
   irAEditarAlumno: (id: number) => void;
   eliminarAlumno: (id: number) => void;
 };
 
 function Lista({ irAEditarAlumno, eliminarAlumno }: listProps) {
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
+  const navigate = useNavigate();
+  const handleCreateAlumno = () => {
+    navigate("/alumno/create");
+  };
 
   useEffect(() => {
     // Obtener los posts desde Laravel
@@ -25,26 +30,30 @@ function Lista({ irAEditarAlumno, eliminarAlumno }: listProps) {
   }, []);
   if (alumnos.length > 0) {
     return (
-      <ul>
-        {alumnos.map((alumno) => (
-          <li key={alumno.id}>
-            {alumno.nombre}
-            <br />
-            <Button
-              text="Editar"
-              id={alumno.id}
-              onClick={() => irAEditarAlumno(alumno.id)}
-            />
-            <Button
-              text="Eliminar"
-              id={alumno.id}
-              onClick={() => eliminarAlumno(alumno.id)}
-            />
-          </li>
-        ))}
-      </ul>
+      <>
+        <Button text="Crear alumno" onClick={handleCreateAlumno} />
+        <ul>
+          {alumnos.map((alumno) => (
+            <li key={alumno.id}>
+              {alumno.nombre}
+              <br />
+              <Button
+                text="Editar"
+                id={alumno.id}
+                onClick={() => irAEditarAlumno(alumno.id)}
+              />
+              <Button
+                text="Eliminar"
+                id={alumno.id}
+                onClick={() => eliminarAlumno(alumno.id)}
+              />
+            </li>
+          ))}
+        </ul>
+      </>
     );
   } else {
+    <Button text="Crear alumno" onClick={handleCreateAlumno} />;
     return <p>No hay alumnos inscritos</p>;
   }
 }

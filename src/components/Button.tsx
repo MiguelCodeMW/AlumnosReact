@@ -1,6 +1,6 @@
 type ButtonProps = {
   text: string;
-  id: string | number;
+  id?: string | number;
   onClick: () => void;
 };
 
