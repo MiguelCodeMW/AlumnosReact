@@ -1,12 +1,14 @@
 import Button from "./Button";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Alumno } from "../utils/Alumno";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axio";
 
 function Lista() {
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
+
   const navigate = useNavigate();
+
   const handleCrearAlumno = () => {
     navigate("/alumno/create");
   };
@@ -16,23 +18,20 @@ function Lista() {
     id: number
   ) => {
     e.stopPropagation();
-    const confirmDelete = window.confirm(
-      "¿Estás seguro de que deseas eliminar este alumno?"
-    );
+    const confirmDelete = window.confirm("¿Eliminar este alumno?");
     if (confirmDelete) {
       try {
-        const response = await axios.delete(
-          `http://127.0.0.1:8000/api/alumno/${id}`
-        );
+        const response = await api.delete(`alumno/${id}`);
+
         if (response.status === 200) {
           setAlumnos(alumnos.filter((alumno) => alumno.id !== id));
-          console.log(`Alumno con ID ${id} eliminado correctamente.`);
         }
       } catch (error) {
         console.error("Error al eliminar alumno:", error);
       }
     }
   };
+
   const handleEditar = (
     e: React.MouseEvent<HTMLButtonElement>,
     alumno: Alumno
@@ -43,13 +42,13 @@ function Lista() {
 
   useEffect(() => {
     // Obtener los posts desde Laravel
-    axios
-      .get("http://127.0.0.1:8000/api/alumno")
+    api
+      .get("/alumno")
       .then((response) => {
         setAlumnos(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching posts:", error);
+        console.error("Error al obtener los alumnos:", error);
       });
   }, []);
 
