@@ -2,12 +2,12 @@ import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 type ButtonProps = {
-  text: string;
+  text?: string;
   id?: string | number;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-function Button({ text, onClick }: ButtonProps) {
+function Button({ text = "Volver", onClick }: ButtonProps) {
   const navigate = useNavigate();
 
   return (

@@ -12,7 +12,7 @@ function Details() {
       <p>Nombre: {alumno.nombre}</p>
       <p>Apellidos: {alumno.apellidos}</p>
       <p>Teléfono: {alumno.telefono}</p>
-      <Button text="Volver" />
+      <Button />
     </>
   );
 }

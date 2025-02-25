@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Alumno } from "../utils/Alumno";
 import { useNavigate, useLocation } from "react-router-dom";
+import Button from "./Button";
 
 function FormularioEdit() {
   const location = useLocation();
@@ -48,44 +49,48 @@ function FormularioEdit() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="nombre"
-        value={datosAlumno.nombre}
-        onChange={handleAlumnoDatos}
-        placeholder="nombre"
-      />
-      <input
-        type="text"
-        name="apellidos"
-        value={datosAlumno.apellidos}
-        onChange={handleAlumnoDatos}
-        placeholder="apellidos"
-      />
-      <input
-        type="email"
-        name="email"
-        value={datosAlumno.email}
-        onChange={handleAlumnoDatos}
-        placeholder="email"
-      />
-      <input
-        type="text"
-        name="telefono"
-        value={datosAlumno.telefono}
-        onChange={handleAlumnoDatos}
-        placeholder="telefono"
-      />
-      <input
-        type="text"
-        name="direccion"
-        value={datosAlumno.direccion}
-        onChange={handleAlumnoDatos}
-        placeholder="direccion"
-      />
-      <button type="submit">Actualizar Alumno</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="nombre"
+          value={datosAlumno.nombre}
+          onChange={handleAlumnoDatos}
+          placeholder="nombre"
+        />
+        <input
+          type="text"
+          name="apellidos"
+          value={datosAlumno.apellidos}
+          onChange={handleAlumnoDatos}
+          placeholder="apellidos"
+        />
+        <input
+          type="email"
+          name="email"
+          value={datosAlumno.email}
+          onChange={handleAlumnoDatos}
+          placeholder="email"
+        />
+        <input
+          type="text"
+          name="telefono"
+          value={datosAlumno.telefono}
+          onChange={handleAlumnoDatos}
+          placeholder="telefono"
+        />
+        <input
+          type="text"
+          name="direccion"
+          value={datosAlumno.direccion}
+          onChange={handleAlumnoDatos}
+          placeholder="direccion"
+        />
+        <button type="submit">Actualizar Alumno</button>
+      </form>
+
+      <Button />
+    </>
   );
 }
 
