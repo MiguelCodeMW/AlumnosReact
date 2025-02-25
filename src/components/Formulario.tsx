@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alumno } from "../utils/Alumno";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import api from "../api/axio";
 
 function Formulario() {
   const [datosAlumno, setDatosAlumnos] = useState<Alumno>({
@@ -23,19 +24,13 @@ function Formulario() {
     e.preventDefault(); // Evita que la página se recargue
 
     try {
-      const response = await fetch("http://localhost:8000/api/alumno", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosAlumno),
-      });
+      const response = await api.post("/alumno", datosAlumno);
 
-      if (!response.ok) {
+      if (response.status !== 201) {
         throw new Error("Error al registrar el alumno");
       }
-
       console.log("Alumno registrado correctamente");
+
       //redireccionar al listado de alumnos
       navigate("/alumno");
     } catch (error) {

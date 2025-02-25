@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alumno } from "../utils/Alumno";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
+import api from "../api/axio";
 
 function FormularioEdit() {
   const location = useLocation();
@@ -25,18 +26,9 @@ function FormularioEdit() {
     e.preventDefault(); // Evita que la página se recargue
 
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/alumno/${alumno.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(datosAlumno),
-        }
-      );
+      const response = await api.put(`/alumno/${alumno.id}`, datosAlumno);
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Error al actualizar el alumno");
       }
 
