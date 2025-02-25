@@ -35,7 +35,7 @@ function Formulario() {
         throw new Error("Error al registrar el alumno");
       }
 
-      console.log("Alumno registrado correctamente");
+      //console.log("Alumno registrado correctamente");
       //redireccionar al listado de alumnos
       navigate("/alumno");
     } catch (error) {
