@@ -11,7 +11,11 @@ function Lista() {
     navigate("/alumno/create");
   };
 
-  const handleEliminarAlumno = async (id: number) => {
+  const handleEliminarAlumno = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    e.stopPropagation();
     const confirmDelete = window.confirm(
       "¿Estás seguro de que deseas eliminar este alumno?"
     );
@@ -29,8 +33,12 @@ function Lista() {
       }
     }
   };
-  const handleEditar = (alumno: Alumno) => {
-    navigate("/alumno/edit", { state: { alumno } });
+  const handleEditar = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    alumno: Alumno
+  ) => {
+    e.stopPropagation();
+    navigate(`/alumno/edit`, { state: { alumno } });
   };
 
   useEffect(() => {
@@ -45,19 +53,24 @@ function Lista() {
       });
   }, []);
 
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>, alumno: Alumno) => {
+    e.stopPropagation();
+    navigate("/alumno/details", { state: { alumno } });
+  };
+
   return (
     <>
       <Button text="Crear alumno" onClick={handleCrearAlumno} />
       {alumnos.length > 0 ? (
         <ul>
           {alumnos.map((alumno) => (
-            <li key={alumno.id}>
+            <li key={alumno.id} onClick={(e) => handleClick(e, alumno)}>
               {alumno.nombre}
               <br />
-              <Button text="Editar" onClick={() => handleEditar(alumno)} />
+              <Button text="Editar" onClick={(e) => handleEditar(e, alumno)} />
               <Button
                 text="Eliminar"
-                onClick={() => handleEliminarAlumno(alumno.id)}
+                onClick={(e) => handleEliminarAlumno(e, alumno.id)}
               />
             </li>
           ))}

@@ -1,11 +1,18 @@
+import { MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+
 type ButtonProps = {
   text: string;
   id?: string | number;
-  onClick: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 function Button({ text, onClick }: ButtonProps) {
-  return <button onClick={onClick}>{text}</button>;
+  const navigate = useNavigate();
+
+  return (
+    <button onClick={onClick ?? (() => navigate("/alumno"))}>{text}</button>
+  );
 }
 
 export default Button;
