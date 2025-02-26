@@ -41,7 +41,6 @@ function Lista() {
   };
 
   useEffect(() => {
-    // Obtener los posts desde Laravel
     api
       .get("/alumno")
       .then((response) => {
