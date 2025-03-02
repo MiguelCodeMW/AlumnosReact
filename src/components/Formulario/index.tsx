@@ -1,19 +1,18 @@
 import { useState } from "react";
-import { Alumno } from "../utils/Alumno";
-import { useNavigate, useLocation } from "react-router-dom";
-import Button from "./Button";
-import api from "../api/axio";
+import { Alumno } from "../../utils/Alumno";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
+import api from "../../api/axio";
+import styles from "./Formulario.module.css";
 
-function FormularioEdit() {
-  const location = useLocation();
-  const alumno = location.state?.alumno as Alumno;
+function Formulario() {
   const [datosAlumno, setDatosAlumnos] = useState<Alumno>({
-    id: alumno?.id || -1,
-    nombre: alumno?.nombre || "",
-    apellidos: alumno?.apellidos || "",
-    email: alumno?.email || "",
-    telefono: alumno?.telefono || "",
-    direccion: alumno?.direccion || "",
+    id: -1,
+    nombre: "",
+    apellidos: "",
+    email: "",
+    telefono: "",
+    direccion: "",
   });
 
   const handleAlumnoDatos = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,13 +25,13 @@ function FormularioEdit() {
     e.preventDefault(); // Evita que la página se recargue
 
     try {
-      const response = await api.put(`/alumno/${alumno.id}`, datosAlumno);
+      const response = await api.post("/alumno", datosAlumno);
 
-      if (response.status !== 200) {
-        throw new Error("Error al actualizar el alumno");
+      if (response.status !== 201) {
+        throw new Error("Error al registrar el alumno");
       }
+      console.log("Alumno registrado correctamente");
 
-      console.log("Alumno actualizado correctamente");
       //redireccionar al listado de alumnos
       navigate("/alumno");
     } catch (error) {
@@ -42,13 +41,14 @@ function FormularioEdit() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
           name="nombre"
           value={datosAlumno.nombre}
           onChange={handleAlumnoDatos}
           placeholder="nombre"
+          className={styles.input}
         />
         <input
           type="text"
@@ -56,6 +56,7 @@ function FormularioEdit() {
           value={datosAlumno.apellidos}
           onChange={handleAlumnoDatos}
           placeholder="apellidos"
+          className={styles.input}
         />
         <input
           type="email"
@@ -63,6 +64,7 @@ function FormularioEdit() {
           value={datosAlumno.email}
           onChange={handleAlumnoDatos}
           placeholder="email"
+          className={styles.input}
         />
         <input
           type="text"
@@ -70,6 +72,7 @@ function FormularioEdit() {
           value={datosAlumno.telefono}
           onChange={handleAlumnoDatos}
           placeholder="telefono"
+          className={styles.input}
         />
         <input
           type="text"
@@ -77,13 +80,15 @@ function FormularioEdit() {
           value={datosAlumno.direccion}
           onChange={handleAlumnoDatos}
           placeholder="direccion"
+          className={styles.input}
         />
-        <button type="submit">Actualizar Alumno</button>
+        <button type="submit" className={styles.submitButton}>
+          Registrar Alumno
+        </button>
       </form>
-
       <Button />
     </>
   );
 }
 
-export default FormularioEdit;
+export default Formulario;

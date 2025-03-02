@@ -1,0 +1,53 @@
+/* Lista */
+.lista {
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Estilo de la lista sin viñetas */
+.ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Estilo de cada item de la lista */
+.li {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacio entre nombre y botones */
+}
+
+/* Efecto hover en el item de la lista */
+.li:hover {
+  background: #f1f1f1;
+}
+
+/* Contenedor de los botones */
+.buttonContainer {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  justify-content: flex-start; /* Alinea los botones a la izquierda */
+}
+
+/* Estilo de los botones */
+.button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Efecto hover en los botones */
+.button:hover {
+  background-color: #0056b3;
+}

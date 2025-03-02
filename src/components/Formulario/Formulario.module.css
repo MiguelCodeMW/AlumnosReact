@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submitButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.submitButton:active {
+  background-color: #004085;
+}
+
+/* editar */
+
+.formEdit .submitButton {
+  background-color: #007bff; /* Cambiar el color del botón de editar */
+}
+
+.formEdit .submitButton:hover {
+  background-color: #0056b3;
+}
+
+.formEdit .submitButton:active {
+  background-color: #004085;
+}

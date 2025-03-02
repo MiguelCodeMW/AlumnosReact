@@ -1,8 +1,9 @@
-import Button from "./Button";
+import Button from "../Button";
 import { useEffect, useState } from "react";
-import { Alumno } from "../utils/Alumno";
+import { Alumno } from "../../utils/Alumno";
 import { useNavigate } from "react-router-dom";
-import api from "../api/axio";
+import api from "../../api/axio";
+import styles from "./Lista.module.css";
 
 function Lista() {
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
@@ -60,16 +61,24 @@ function Lista() {
     <>
       <Button text="Crear alumno" onClick={handleCrearAlumno} />
       {alumnos.length > 0 ? (
-        <ul>
+        <ul className={styles.ul}>
           {alumnos.map((alumno) => (
-            <li key={alumno.id} onClick={(e) => handleClick(e, alumno)}>
+            <li
+              className={styles.li}
+              key={alumno.id}
+              onClick={(e) => handleClick(e, alumno)}
+            >
               {alumno.nombre}
-              <br />
-              <Button text="Editar" onClick={(e) => handleEditar(e, alumno)} />
-              <Button
-                text="Eliminar"
-                onClick={(e) => handleEliminarAlumno(e, alumno.id)}
-              />
+              <div className={styles.buttonContainer}>
+                <Button
+                  text="Editar"
+                  onClick={(e) => handleEditar(e, alumno)}
+                />
+                <Button
+                  text="Eliminar"
+                  onClick={(e) => handleEliminarAlumno(e, alumno.id)}
+                />
+              </div>
             </li>
           ))}
         </ul>
