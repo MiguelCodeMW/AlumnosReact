@@ -15,6 +15,8 @@ function Formulario() {
     direccion: "",
   });
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleAlumnoDatos = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDatosAlumnos({ ...datosAlumno, [e.target.name]: e.target.value });
   };
@@ -27,15 +29,11 @@ function Formulario() {
     try {
       const response = await api.post("/alumno", datosAlumno);
 
-      if (response.status !== 201) {
-        throw new Error("Error al registrar el alumno");
+      if (response.status === 201) {
+        navigate("/alumno");
       }
-      console.log("Alumno registrado correctamente");
-
-      //redireccionar al listado de alumnos
-      navigate("/alumno");
     } catch (error) {
-      console.error("Error:", error);
+      setError((error as Error).message);
     }
   };
 
@@ -86,6 +84,8 @@ function Formulario() {
           Registrar Alumno
         </button>
       </form>
+      {error && <div className={styles.error}>{error}</div>}
+
       <Button />
     </>
   );

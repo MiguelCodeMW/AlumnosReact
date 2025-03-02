@@ -20,6 +20,7 @@ function FormularioEdit() {
   const handleAlumnoDatos = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDatosAlumnos({ ...datosAlumno, [e.target.name]: e.target.value });
   };
+  const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -29,15 +30,11 @@ function FormularioEdit() {
     try {
       const response = await api.put(`/alumno/${alumno.id}`, datosAlumno);
 
-      if (response.status !== 200) {
-        throw new Error("Error al actualizar el alumno");
+      if (response.status === 200) {
+        navigate("/alumno");
       }
-
-      console.log("Alumno actualizado correctamente");
-      //redireccionar al listado de alumnos
-      navigate("/alumno");
     } catch (error) {
-      console.error("Error:", error);
+      setError((error as Error).message);
     }
   };
 
@@ -94,6 +91,7 @@ function FormularioEdit() {
           Actualizar Alumno
         </button>
       </form>
+      {error && <div className={styles.error}>{error}</div>}
 
       <Button />
     </>
